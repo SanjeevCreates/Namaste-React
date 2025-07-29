@@ -5,13 +5,14 @@
   "scripts": {
     "test": "jest",
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "dev": "vite"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/urfavsanju2141/Namaste-React.git"
   },
-  "keywords": [ ],
+  "keywords": [],
   "author": "Sanjeev",
   "license": "ISC",
   "bugs": {
@@ -19,11 +20,17 @@
   },
   "homepage": "https://github.com/urfavsanju2141/Namaste-React#readme",
   "devDependencies": {
+    "autoprefixer": "^10.4.21",
     "parcel": "^2.13.3",
-    "process": "^0.11.10"
+    "postcss": "^8.5.3",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.17"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.0.15",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router": "^6.21.1",
+    "react-router-dom": "^6.21.1"
   }
 }
