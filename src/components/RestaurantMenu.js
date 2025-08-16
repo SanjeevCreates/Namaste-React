@@ -1,34 +1,42 @@
- import useRestaurantMenu from "../utils/useRestaurantMenu";
-
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 import Shimmer from "./Shimmer";
-
 import { useParams } from "react-router-dom";
 
-
-
 const RestaurantMenu = () => {
+  const { resId } = useParams();
+  const resInfo = useRestaurantMenu(resId);
 
-    const {resId} = useParams();
+  if (resInfo === null) return <Shimmer />;
 
-    const resInfo = useRestaurantMenu(resId);
-    
-if (resInfo === null ) return  <Shimmer /> 
-    
- 
-const {name, cuisines, costForTwoMessage} = resInfo?.cards[2]?.card?.card?.info;
+  const { name, cuisines, costForTwoMessage } =
+    resInfo?.cards[2]?.card?.card?.info || {};
 
-const {itemCards} = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
-    
+  // Get all REGULAR cards
+  const menuCards =
+    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+
+  // Find the one that contains itemCards
+  const itemsCard = menuCards.find((c) => c.card?.card?.itemCards);
+
+  const itemCards = itemsCard?.card?.card?.itemCards || [];
+
   return (
     <div className="menu">
-        <h1>{name}</h1>
-        <p>{cuisines.join(",")} - {costForTwoMessage}</p>
-        <h2>Menu</h2>
-        <ul>
-            {itemCards.map(item => <li key={item.card.info.id}>{item.card.info.name}-{' Rs.'}{item.card.info.price/100 || item.card.info.defaultPrice/100}</li>)}
-            
-        </ul>      
+      <h1>{name}</h1>
+      <p>
+        {cuisines?.join(", ")} - {costForTwoMessage}
+      </p>
+      <h2>Menu</h2>
+      <ul>
+        {itemCards.map((item) => (
+          <li key={item.card.info.id}>
+            {item.card.info.name} - Rs.{" "}
+            {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
+
 export default RestaurantMenu;
